@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device GPS Tracker (Node.js)</title>
+    <!-- Tailwind CSS - still loaded from CDN for simplicity -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Load LaunchDarkly from our local node_modules via the server -->
+    <script src="/scripts/launchdarkly-js-client-sdk/dist/ldclient.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .transition-all { transition: all 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <!-- The rest of your HTML content remains exactly the same -->
+    <div id="login-container" class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Welcome Back</h1>
+            <p class="text-gray-500">Please sign in to view your devices</p>
+        </div>
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="username" class="text-sm font-medium text-gray-700">Username</label>
+                <input id="username" name="username" type="text" required class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Hint: admin">
+            </div>
+            <div>
+                <label for="password" class="text-sm font-medium text-gray-700">Password</label>
+                <input id="password" name="password" type="password" required class="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Hint: password">
+            </div>
+            <div id="error-message" class="text-red-500 text-sm text-center font-medium" style="display: none;"></div>
+            <div>
+                <button type="submit" class="w-full py-3 text-white bg-blue-600 rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">Sign In</button>
+            </div>
+        </form>
+    </div>
+    <div id="device-container" class="w-full max-w-6xl p-8 bg-white rounded-xl shadow-lg" style="display: none;">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Device Dashboard</h1>
+            <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">Logout</button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-50" id="device-table-head">
+                    <!-- Table header will be rendered by JS -->
+                </thead>
+                <tbody id="device-table-body" class="divide-y divide-gray-200"></tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Load our client-side script -->
+    <script src="/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "device-tracker-node",
+  "version": "1.0.0",
+  "description": "A device tracker app served by Node.js and Express.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@launchdarkly/node-server-sdk": "^9.10.0",
+    "express": "^4.19.2",
+    "launchdarkly-js-client-sdk": "^3.1.2"
+  }
+}
