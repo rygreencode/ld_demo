@@ -20,6 +20,8 @@ console.log("LaunchDarkly Client Initialized:", client);
 client.on('initialized', function () {
   console.log('SDK successfully initialized!');
   const flagValue = client.variation('subscribe-toggle-feature', false);
+  const showTicketBtn = client.variation('open-ticket-btn', true);
+  window.showOpenTicketButton(showTicketBtn);
   console.log("Our first feature flag is: " + flagValue);
   renderDeviceTable(flagValue);
 });
@@ -27,11 +29,16 @@ client.on('initialized', function () {
 client.on('ready', () => {
   console.log('LD client is ready!');
   const flagValue = client.variation('subscribe-toggle-feature', false);
+  const showTicketBtn = client.variation('open-ticket-btn', true);
+  window.showOpenTicketButton(showTicketBtn);
   renderDeviceTable(flagValue);
   // Subscribe to changes for a specific flag
   client.on('change:subscribe-toggle-feature', (currentValue, previousValue) => {
     console.log(`Flag 'subscribe-toggle-feature' changed from ${previousValue} to ${currentValue}`);
     renderDeviceTable(currentValue);
+  });
+  client.on('change:open-ticket-btn', (currentValue, previousValue) => {
+    window.showOpenTicketButton(currentValue);
   });
 });
 

@@ -45,7 +45,10 @@
     <div id="device-container" class="w-full max-w-6xl p-8 bg-white rounded-xl shadow-lg" style="display: none;">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Device Dashboard</h1>
-            <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">Logout</button>
+            <div class="flex gap-4">
+                <button id="open-ticket-btn" data-flag="open-ticket" style="display:none;" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">Open a Ticket</button>
+                <button id="logout-button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all">Logout</button>
+            </div>
         </div>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200 rounded-lg">
@@ -56,7 +59,45 @@
             </table>
         </div>
     </div>
+
+    <!-- Ticket Modal -->
+    <div id="ticket-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50" style="display:none;">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+            <h2 class="text-xl font-bold mb-4">Open a Support Ticket</h2>
+            <form id="ticket-form">
+                <textarea id="ticket-text" class="w-full border border-gray-300 rounded-lg p-2 mb-4" rows="4" placeholder="Describe your issue..."></textarea>
+                <div class="flex justify-end gap-2">
+                    <button type="button" id="close-ticket-btn" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- Load our client-side script -->
     <script src="/script.js" defer></script>
+    <script>
+    // Ticket modal logic
+    // Show/hide Open Ticket button based on flag
+    window.showOpenTicketButton = function(show) {
+        var btn = document.getElementById('open-ticket-btn');
+        if (btn) btn.style.display = show ? '' : 'none';
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+        const openBtn = document.getElementById('open-ticket-btn');
+        const modal = document.getElementById('ticket-modal');
+        const closeBtn = document.getElementById('close-ticket-btn');
+        const form = document.getElementById('ticket-form');
+        if (openBtn && modal && closeBtn && form) {
+            openBtn.onclick = () => { modal.style.display = 'flex'; };
+            closeBtn.onclick = () => { modal.style.display = 'none'; };
+            form.onsubmit = (e) => {
+                e.preventDefault();
+                modal.style.display = 'none';
+                form.reset();
+                // No further action for demo
+            };
+        }
+    });
+    </script>
 </body>
 </html>
