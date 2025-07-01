@@ -163,3 +163,21 @@ if(logoutButton) {
         showLogin();
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Ticket modal logic
+    const openBtn = document.getElementById('open-ticket-btn');
+    const modal = document.getElementById('ticket-modal');
+    const closeBtn = document.getElementById('close-ticket-btn');
+    const form = document.getElementById('ticket-form');
+    if (openBtn && modal && closeBtn && form) {
+        openBtn.onclick = () => { modal.style.display = 'flex'; };
+        closeBtn.onclick = () => { modal.style.display = 'none'; };
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            modal.style.display = 'none';
+            form.reset();
+            // No further action for demo
+        };
+    }
+});

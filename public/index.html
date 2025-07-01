@@ -75,29 +75,5 @@
     </div>
     <!-- Load our client-side script -->
     <script src="/script.js" defer></script>
-    <script>
-    // Ticket modal logic
-    // Show/hide Open Ticket button based on flag
-    window.showOpenTicketButton = function(show) {
-        var btn = document.getElementById('open-ticket-btn');
-        if (btn) btn.style.display = show ? '' : 'none';
-    };
-    document.addEventListener('DOMContentLoaded', function() {
-        const openBtn = document.getElementById('open-ticket-btn');
-        const modal = document.getElementById('ticket-modal');
-        const closeBtn = document.getElementById('close-ticket-btn');
-        const form = document.getElementById('ticket-form');
-        if (openBtn && modal && closeBtn && form) {
-            openBtn.onclick = () => { modal.style.display = 'flex'; };
-            closeBtn.onclick = () => { modal.style.display = 'none'; };
-            form.onsubmit = (e) => {
-                e.preventDefault();
-                modal.style.display = 'none';
-                form.reset();
-                // No further action for demo
-            };
-        }
-    });
-    </script>
 </body>
 </html>
