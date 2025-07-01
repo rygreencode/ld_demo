@@ -7,6 +7,12 @@ const errorMessage = document.getElementById('error-message');
 const logoutButton = document.getElementById('logout-button');
 const deviceTableBody = document.getElementById('device-table-body');
 
+// Make showOpenTicketButton available globally before LD SDK uses it
+window.showOpenTicketButton = function(show) {
+    var btn = document.getElementById('open-ticket-btn');
+    if (btn) btn.style.display = show ? '' : 'none';
+};
+
 // Example of initializing the LaunchDarkly client.
 const context = {
   kind: 'user',
@@ -133,12 +139,20 @@ if(loginForm) {
             });
             const result = await response.json();
             if (result.success) {
+                //establish user role based on username
+                let userrole = 'none'; // Default role
+                if (username === 'admin') {
+                    userrole = 'admin';
+                } else if (username === 'ryan' || username === 'jane') {
+                    userrole = 'manager';
+                }
                 // Set new context and Identify User for LaunchDarkly here
                 const context = {
                     kind: 'user',
                     key: username,
                     name: username,
-                    email: username + '@example.com'
+                    email: username + '@example.com',
+                    role: userrole
                 };
                 client.identify(context, null, function() {
                     const flagValue = client.variation('subscribe-toggle-feature', false);
@@ -176,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
         form.onsubmit = (e) => {
             e.preventDefault();
             modal.style.display = 'none';
+            client.track("example-event-key", context);
             form.reset();
             // No further action for demo
         };
