@@ -1,6 +1,8 @@
-npm install
-npm start
-Server is running at http://localhost:3000
+To initialize this Node.js structure please follow the commands below. 
+For security reasons, my server side SDK key is stored locally and not pushed to github. If recreating my setup, please reachout if required for running locally
+1. npm install
+2. npm start
+    Server is running at http://localhost:3000
 
 Part 1 - "View on Map" feature can be toggled from LD UI; Listener Implemented to Allow Runtime Changes and Instant Remidiation (in the case of URL failure or poor release)
 
