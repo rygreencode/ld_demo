@@ -90,9 +90,10 @@ function renderDeviceTable(showMap = false) {
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-center">${device.lat}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-center">${device.lon}</td>`;
         if (showMap) {
+            const mapLinkId = `map-link-${device.id}`;
             row += `
             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                <a href="https://www.google.com/maps?q=${device.lat},${device.lon}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">View on Map</a>
+            <a href="https://www.google.com/maps?q=${device.lat},${device.lon}" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline map-link" id="${mapLinkId}">View on Map</a>
             </td>`;
         }
         row += `</tr>`;
@@ -190,9 +191,16 @@ document.addEventListener('DOMContentLoaded', function() {
         form.onsubmit = (e) => {
             e.preventDefault();
             modal.style.display = 'none';
-            client.track("example-event-key", context);
+            client.track("logsubmit", context);
             form.reset();
             // No further action for demo
         };
     }
+});
+
+deviceTableBody.addEventListener('click', (event) => {
+  if (event.target.closest('.map-link')) {
+    client.track('mapopen', context);
+    console.log("map link clicked");
+  }
 });
