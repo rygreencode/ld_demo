@@ -1,6 +1,6 @@
-To initialize this Node.js structure please follow the commands below. 
+To initialize this Node.js structure please follow the commands below. Assumption is made that Node.js is installed on the local machine and the user has access to a browser to view localhost. 
 
-My server side SDK key is stored locally and not pushed to github. If recreating my setup, please reachout if required for running locally. Username and passwords are authenticated by the client based on the key stored on the server. 
+My server side SDK key is stored locally and not published. If recreating my setup, please reachout to aquire a .ref.json file with the SDK key that can be stored within the same folder as the server.js file. Username and passwords are authenticated by the client based on the key stored on the server. 
 
 1. npm install
 2. npm start
