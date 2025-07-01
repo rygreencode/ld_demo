@@ -22,7 +22,8 @@ client.on('initialized', function () {
   const flagValue = client.variation('subscribe-toggle-feature', false);
   const showTicketBtn = client.variation('open-ticket-btn', true);
   window.showOpenTicketButton(showTicketBtn);
-  console.log("Our first feature flag is: " + flagValue);
+  console.log("subscribeTogger is: " + flagValue);
+  console.log("showTicket is: " + showTicketBtn);
   renderDeviceTable(flagValue);
 });
 
@@ -142,6 +143,8 @@ if(loginForm) {
                 client.identify(context, null, function() {
                     const flagValue = client.variation('subscribe-toggle-feature', false);
                     console.log(username + "'s flag value is: " + flagValue);
+                    const showTicketBtn = client.variation('open-ticket-btn', true);
+                    console.log("showTicket is: " + showTicketBtn);
                     showDeviceList(flagValue);
                 });
             } else {
