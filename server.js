@@ -2,6 +2,10 @@
 const express = require('express');
 // Import the path module, which helps in working with file and directory paths.
 const path = require('path');
+// Import the file system module (fs) to read files, such as the LaunchDarkly SDK key.
+const fs = require('fs');
+// Import the LaunchDarkly Node.js SDK for feature flag management.
+const LaunchDarkly = require('@launchdarkly/node-server-sdk');
 
 // Create an instance of the Express application.
 const app = express();
@@ -30,16 +34,20 @@ app.post('/api/login', (req, res) => {
   }
 });
 // --- LaunchDarkly Server-Side Initialization ---
-const LaunchDarkly = require('@launchdarkly/node-server-sdk'); // Use require
-const ldServerClient = LaunchDarkly.init('sdk-6727a342-c259-4774-9f0e-21c1dec27cfa');
+let ldSdkKey = '';
+try {
+  const refData = JSON.parse(fs.readFileSync(path.join(__dirname, '.ref.json'), 'utf8'));
+  ldSdkKey = refData.SDKKEY || '';
+} catch (err) {
+  console.error('Could not read LaunchDarkly SDK key from .ref.json:', err);
+}
+const ldServerClient = LaunchDarkly.init(ldSdkKey);
 
 // --- Main Application Logic (in an async function) ---
 // We create an immediately-invoked async function to use 'await' at the top level.
 (async () => {
   try {
     // 1. Await SDK initialization.
-    // This replaces the ldServerClient.once('ready', ...) callback.
-    // The code will pause here until the SDK is fully initialized.
     await ldServerClient.waitForInitialization();
     console.log('SDK successfully initialized!');
 

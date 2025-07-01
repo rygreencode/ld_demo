@@ -8,6 +8,6 @@ Part 1 - "View on Map" feature can be toggled from LD UI; Listener Implemented t
 
 Part 2 - "Open Support Ticket" functionality limited to admin and select user (Ryan) targeted via user selection with Launch Darkley; context driven by login and allowed for specific users (admin) or users with "manager" role (Ryan and Jane (identified by segment rule))
 
-EC - Expirementation
+EC - Expirementation; metrics are being collected as users use (or choose not to use) the "View on Map" feature release, with an expirement running to see if when presented users choose to view their assest live location on a map. 
 
-EC - Integration
+EC - Integration; Ryan has integrated LaunchDarkly into his personal Slack Workspace, updates posted to a channel when flags are updated
