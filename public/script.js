@@ -191,16 +191,24 @@ document.addEventListener('DOMContentLoaded', function() {
         form.onsubmit = (e) => {
             e.preventDefault();
             modal.style.display = 'none';
-            client.track("logsubmit", context);
+            client.track("logsubmit");
+            console.log("Ticket submitted");
             form.reset();
             // No further action for demo
         };
     }
-});
-
-deviceTableBody.addEventListener('click', (event) => {
-  if (event.target.closest('.map-link')) {
-    client.track('mapopen', context);
-    console.log("map link clicked");
-  }
-});
+    const table = document.getElementById('device-table-body');
+    if (table) {
+        table.addEventListener('click', (event) => {
+            const link = event.target.closest('.map-link');
+            if (link) {
+                event.preventDefault();
+                client.track("mapopen");
+                console.log("Map Opened");
+                setTimeout(() => {
+                    window.open(link.href, '_blank');
+                }, 1500);
+            }
+        });
+    }
+})
