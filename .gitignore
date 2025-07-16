@@ -1,2 +1,4 @@
-.ref.text
+# Ignore build artifacts
+.ref.json
 node_modules/
+.DS_Store
